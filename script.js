@@ -1,44 +1,70 @@
-let computerScore = 0
-let humanScore = 0
+function getComputerChoice() {
+  const randomInt = Math.floor(Math.random() * 3);
 
-function getComputerChoice() { 
-let randomInt = Math.floor(Math.random() * 3); 
-
-switch(randomInt) { 
-case 0: return "rock"; 
-case 1: return "paper";
-case 2: return "scissors"; } 
+  switch (randomInt) {
+    case 0:
+      return "rock";
+    case 1:
+      return "paper";
+    case 2:
+      return "scissors";
+  }
 }
-
-// console.log(getComputerChoice())
 
 function getHumanChoice() {
-    return prompt("rock, paper or scissors?")
+  return prompt("rock, paper or scissors?");
 }
 
-// console.log(getHumanChoice())
+function playGame() {
+  let computerScore = 0;
+  let humanScore = 0;
+  let round = 1;
 
-function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase()
+  function playRound(humanChoice, computerChoice) {
+    humanChoice = humanChoice.toLowerCase();
 
     if (humanChoice === computerChoice) {
-        console.log("Draw! Nobody wins");
-        console.log(`Human: ${humanScore}`);
-        console.log(`Computer: ${computerScore}`);
-}   else if ((humanChoice === "rock" && computerChoice === "scissors") || (humanChoice === "paper" && computerChoice === "rock") || (humanChoice === "scissors" && computerChoice === "paper")) {
-        console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
-        ++humanScore;
-        console.log(`Human: ${humanScore}`);
-        console.log(`Computer: ${computerScore}`);
-}   else {
-    console.log(`You lost! ${computerChoice} beats ${humanChoice}.`);
-    ++computerScore;
-    console.log(`Human: ${humanScore}`);
-    console.log(`Computer: ${computerScore}`);
-}
+      console.log(
+        `Round ${round}. Human: ${humanChoice} vs Computer: ${computerChoice}. Draw.`,
+      );
+    } else if (
+      (humanChoice === "rock" && computerChoice === "scissors") ||
+      (humanChoice === "paper" && computerChoice === "rock") ||
+      (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+      console.log(
+        `Round ${round}. Human: ${humanChoice} vs Computer: ${computerChoice}. You win.`,
+      );
+      ++humanScore;
+    } else {
+      console.log(
+        `Round ${round}. Human: ${humanChoice} vs Computer: ${computerChoice}. You lose.`,
+      );
+      ++computerScore;
+    }
+
+    ++round;
+  }
+
+  playRound(getHumanChoice(), getComputerChoice());
+  playRound(getHumanChoice(), getComputerChoice());
+  playRound(getHumanChoice(), getComputerChoice());
+  playRound(getHumanChoice(), getComputerChoice());
+  playRound(getHumanChoice(), getComputerChoice());
+
+  if (humanScore > computerScore) {
+    console.log(
+      `Human: ${humanScore} | Computer: ${computerScore}. You win!`,
+    );
+  } else if (humanScore < computerScore) {
+    console.log(
+      `Human: ${humanScore} | Computer: ${computerScore}. You lose!`,
+    );
+  } else {
+    console.log(
+      `Human: ${humanScore} | Computer: ${computerScore}. Draw!`,
+    );
+  }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+playGame();
